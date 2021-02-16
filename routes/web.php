@@ -22,7 +22,8 @@ use App\Http\Controllers\BrandController;
 Route::get('/', function () {
     $brands = \App\Models\Brand::latest()->get();
     $sliders = \App\Models\Slider::all();
-    $countAbout = $about = \App\Models\HomeAbout::count();
+    $countAbout  = \App\Models\HomeAbout::count();
+    $countAbout = $countAbout == 0 ? 1 : $countAbout;
     $about = \App\Models\HomeAbout::find(random_int(1,$countAbout));
     return view('home', compact('brands', 'sliders', 'about'));
 });
@@ -43,10 +44,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 Route::get('brands/destroy/{id}', [BrandController::class, 'destroy'])->name('brands.destroy');
 Route::get('sliders/destroy/{id}', [HomeController::class, 'destroy'])->name('sliders.destroy');
-Route::get('abouts/destroy/{id}', [AboutController::class, 'destroy'])->name('abouts.destroy');
+//Route::get('abouts/destroy/{id}', [AboutController::class, 'destroy'])->name('abouts.destroy');
 Route::resource('brands',BrandController::class)->except(['destroy']);
 Route::resource('sliders',HomeController::class)->except(['destroy']);
-Route::resource('abouts',AboutController::class)->except(['destroy']);
+Route::resource('abouts',AboutController::class)->except('destroy');
 //Route::resources([
 //    'brands' => BrandController::class,
 //    'sliders' => HomeController::class
@@ -71,4 +72,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 Route::get('edit-password', [\App\Http\Controllers\PasswordController::class, 'edit'])->name('password.edit');
 Route::put('update-password', [\App\Http\Controllers\PasswordController::class, 'update'])->name('password.update');
+Route::get('user/profile', [\App\Http\Controllers\PasswordController::class, 'getProfile'])->name('profile.show');
+Route::put('user/profile', [\App\Http\Controllers\PasswordController::class, 'updateP'])->name('profile.update');
 

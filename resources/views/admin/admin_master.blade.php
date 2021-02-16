@@ -22,7 +22,7 @@
 
     <!-- SLEEK CSS -->
     <link id="sleek-css" rel="stylesheet" href="{{asset('backend/assets/css/sleek.css')}}" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />
 
 
     <!-- FAVICON -->
@@ -37,6 +37,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="{{asset('backend/assets/plugins/nprogress/nprogress.js')}}"></script>
+
 </head>
 
 
@@ -94,8 +95,38 @@
 <script src="{{asset('backend/assets/js/date-range.js')}}"></script>
 <script src="{{asset('backend/assets/js/map.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+@if (session('message'))
+    <script>
+        let alertType = "{{session('alert-type', 'info')}}";
+        console.log(alertType)
+        let message = "{{session('message')}}"
+        switch (alertType)
+        {
+            case 'info':
+            {
+                toastr.info(message);
+                break;
+            }
+            case 'success':
+            {
+                toastr.success(message)
+                break;
+            }
+            case 'warning':
+            {
+                toastr.warning(message)
+                break;
+            }
+            case 'error':
+            {
+                toastr.error(message)
+                break;
+            }
+        }
+    </script>
 
-
+@endif
 
 
 </body>

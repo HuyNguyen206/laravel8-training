@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -45,5 +46,27 @@ class PasswordController extends Controller
             $user->save();
             return redirect()->back()->with('success', 'Your password has been update successfully!');
         }
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+        return view('admin.profile', compact('user'));
+    }
+
+    public function updateP(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+        ]);
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->save();
+        $notification = [
+            'alert-type' => 'success',
+            'message' => 'Your profile has been update successfully!'
+        ];
+        return redirect()->back()->with($notification);
+
     }
 }

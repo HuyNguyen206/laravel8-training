@@ -6,16 +6,16 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2>{{$about->title}}</strong></h2>
+                <h2>{{$about->title ?? null}}</strong></h2>
             </div>
 
             <div class="row content">
                 <div class="col-lg-6" data-aos="fade-right">
-                   {{$about->short_dis}}
+                   {{$about->short_dis ?? null}}
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
                    <p>
-                       {{$about->long_dis}}
+                       {{$about->long_dis ?? null}}
                    </p>
                 </div>
             </div>
